@@ -30,7 +30,7 @@ format_student_discipline_incident as (
             to_json(
                 array_agg(named_struct('disciplineIncidentParticipationCodeDescriptor', student_participation_code))
                     over (partition by incident_id, school_id, student_unique_id)
-            ),
+            )
         ) as v_discipline_incident_participation_codes,
         v_ext
     from dedupe_base_student_discipline_incident
