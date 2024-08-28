@@ -10,6 +10,6 @@ flattened as (
         k_discipline_incident,
         {{ extract_descriptor('value:disciplineIncidentParticipationCodeDescriptor::string') }} as participation_code
     from stg_stu_discipline_incident_non_offenders,
-        lateral flatten(input => v_discipline_incident_participation_codes)
+        lateral variant_explode(v_discipline_incident_participation_codes)
 )
 select * from flattened

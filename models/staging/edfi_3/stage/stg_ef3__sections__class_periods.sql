@@ -8,6 +8,6 @@ flattened as (
         k_course_section,
         {{ gen_skey('k_class_period', alt_ref='value:classPeriodReference') }}
     from stg_sections,
-        lateral flatten(input => v_class_periods)
+        lateral variant_explode(v_class_periods)
 )
 select * from flattened

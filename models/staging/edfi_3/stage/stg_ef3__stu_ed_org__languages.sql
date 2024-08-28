@@ -13,7 +13,7 @@ flattened as (
         {{ extract_descriptor('lang_uses.value:languageUseDescriptor::string') }} as language_use,
         {{ extract_descriptor('lang.value:languageDescriptor::string') }} as code_value
     from stg_stu_ed_org
-        , lateral flatten(input=>v_languages) as lang
-        , lateral flatten(input=>lang.value:uses) as lang_uses
+        , lateral variant_explode(v_languages) as lang
+        , lateral variant_explode(lang.value:uses) as lang_uses
 )
 select * from flattened

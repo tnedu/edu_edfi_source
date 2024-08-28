@@ -8,6 +8,6 @@ flattened as (
         k_session,
         {{ gen_skey('k_grading_period', alt_ref='value:gradingPeriodReference') }}
     from stg_sessions
-        , lateral flatten(input=>v_grading_periods)
+        , lateral variant_explode(v_grading_periods)
 )
 select * from flattened

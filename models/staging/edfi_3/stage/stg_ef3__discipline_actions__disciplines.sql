@@ -14,7 +14,7 @@ flattened as (
         -- edfi extensions
         value:_ext as v_ext
     from stg_discipline_actions,
-        lateral flatten(input => v_disciplines)
+        lateral variant_explode(v_disciplines)
 ),
 extended as (
     select 

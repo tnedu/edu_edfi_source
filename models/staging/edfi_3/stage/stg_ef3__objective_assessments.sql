@@ -16,7 +16,7 @@ distinct_obj_subject as (
         academic_subject,
         value:objectiveAssessmentReference:identificationCode::string as objective_assessment_identification_code
     from stage_student_assessments,
-        lateral flatten(input => v_student_objective_assessments)
+        lateral variant_explode(v_student_objective_assessments)
 ),
 join_subject as (
     select

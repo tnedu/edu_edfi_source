@@ -11,6 +11,6 @@ flattened as (
         value:courseCatalogURL::string as course_catalog_url,
         value:identificationCode::string as id_code
     from stg_courses,
-        lateral flatten(input => v_identification_codes)
+        lateral variant_explode(v_identification_codes)
 )
 select * from flattened
