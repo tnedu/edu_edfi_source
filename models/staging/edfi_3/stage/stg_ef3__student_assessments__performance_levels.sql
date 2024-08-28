@@ -12,6 +12,6 @@ flattened as (
         {{ extract_descriptor('value:assessmentReportingMethodDescriptor::string') }} as performance_level_name,
         {{ extract_descriptor('value:performanceLevelDescriptor::string') }} as performance_level_result
     from stage_student_assessments
-        , lateral flatten(input=>v_performance_levels)
+        , lateral variant_explode(v_performance_levels)
 )
 select * from flattened

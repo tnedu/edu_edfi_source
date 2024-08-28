@@ -12,6 +12,6 @@ flattened as (
         {{ gen_skey('k_staff', alt_ref='value:staffReference') }},
         value:staffReference:staffUniqueId::string as staff_unique_id
     from stg_discipline_actions,
-        lateral flatten(input => v_staffs)
+        lateral variant_explode(v_staffs)
 )
 select * from flattened

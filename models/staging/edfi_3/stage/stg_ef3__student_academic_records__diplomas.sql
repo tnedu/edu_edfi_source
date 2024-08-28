@@ -24,7 +24,7 @@ flattened as (
         -- edfi extensions
         value:_ext as v_ext 
     from stg_academic_records
-        , lateral flatten(input=>v_diplomas)
+        , lateral variant_explode(v_diplomas)
 ),
 -- pull out extensions from v_diplomas.v_ext to their own columns
 extended as (

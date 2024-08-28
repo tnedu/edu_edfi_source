@@ -9,11 +9,11 @@ flatten as (
         base_assessments.*
         {{ extract_extension(model_name=this.name, flatten=True) }}
     from base_assessments
-        , lateral flatten(input=>v_academic_subjects)
+        , lateral variant_explode(v_academic_subjects)
 ),
 keyed as (
     select
-        {{ dbt_utils.surrogate_key(
+        {{ dbt_utils.generate_surrogate_key(
             ['tenant_code',
             'api_year',
             'lower(academic_subject)',

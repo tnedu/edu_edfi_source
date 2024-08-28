@@ -8,6 +8,6 @@ flattened as (
         k_assessment,
         {{ extract_descriptor('value:gradeLevelDescriptor::string') }} as grade_level
     from stage_assessments,
-        lateral flatten(input=>v_assessed_grade_levels)
+        lateral variant_explode(v_assessed_grade_levels)
 )
 select * from flattened

@@ -13,7 +13,7 @@ flattened as (
         -- edfi extensions
         value:_ext as v_ext 
     from stg_academic_records
-        , lateral flatten(input=>v_grade_point_averages)
+        , lateral variant_explode(v_grade_point_averages)
 ),
 -- pull out extensions from v_gpas.v_ext to their own columns
 extended as (

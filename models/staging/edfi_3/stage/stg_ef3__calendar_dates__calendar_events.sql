@@ -10,6 +10,6 @@ flattened as (
         n_calendar_events,
         {{ extract_descriptor('value:calendarEventDescriptor::string') }} as calendar_event
     from stg_calendar_dates,
-        lateral flatten(input => v_calendar_events)
+        lateral variant_explode(v_calendar_events)
 )
 select * from flattened

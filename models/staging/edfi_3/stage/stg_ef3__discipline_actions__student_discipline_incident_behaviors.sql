@@ -17,7 +17,7 @@ flattened as (
         -- edfi extensions
         value:_ext as v_ext    
     from stg_discipline_actions,
-        lateral flatten(input => v_student_discipline_incident_behavior_associations)
+        lateral variant_explode(v_student_discipline_incident_behavior_associations)
 
     union all
 
@@ -36,7 +36,7 @@ flattened as (
         -- edfi extensions
         value:_ext as v_ext
     from stg_discipline_actions,
-        lateral flatten(input => v_student_discipline_incident_associations)
+        lateral variant_explode(v_student_discipline_incident_associations)
 ),
 extended as (
     select 

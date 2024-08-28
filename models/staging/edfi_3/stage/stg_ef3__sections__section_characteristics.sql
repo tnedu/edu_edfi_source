@@ -9,6 +9,6 @@ flattened as (
         k_course_section,
         {{ extract_descriptor('value:sectionCharacteristicDescriptor::string') }} as section_characteristic
     from stg_sections,
-        lateral flatten(input => v_section_characteristics)
+        lateral variant_explode(v_section_characteristics)
 )
 select * from flattened

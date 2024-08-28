@@ -11,6 +11,6 @@ flattened as (
         value:classPeriodReference:classPeriodName::string as class_period_name,
         value:classPeriodReference:schoolId::int           as class_period_school_id
     from stg_bell_schedules,
-        lateral flatten(input => v_class_periods)
+        lateral variant_explode(v_class_periods)
 )
 select * from flattened

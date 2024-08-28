@@ -23,7 +23,7 @@ flattened as (
         value:_ext as v_ext
 
     from stage_stu_programs,
-        lateral flatten(input => v_title_i_part_a_program_services)
+        lateral variant_explode(v_title_i_part_a_program_services)
 )
 
 select * from flattened
