@@ -9,6 +9,6 @@ flattened as (
         k_school,
         value:date::date as calendar_date
     from stg_bell_schedules,
-        lateral flatten(input => v_dates)
+        lateral variant_explode(v_dates)
 )
 select * from flattened

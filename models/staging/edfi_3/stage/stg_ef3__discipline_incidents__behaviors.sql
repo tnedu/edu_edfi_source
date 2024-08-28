@@ -10,6 +10,6 @@ flattened as (
         {{ extract_descriptor('value:behaviorDescriptor::string') }} as behavior_type,
         value:behaviorDetailedDescription::string as behavior_detailed_description
     from stg_discipline_incidents,
-        lateral flatten(input => v_behaviors)
+        lateral variant_explode(v_behaviors)
 )
 select * from flattened

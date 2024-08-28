@@ -17,7 +17,7 @@ renamed as (
         v:calendarReference:schoolYear::integer  as school_year,
         v:calendarReference                      as calendar_reference,
         v:calendarEvents                         as v_calendar_events,
-        array_size(v:calendarEvents)             as n_calendar_events,
+        size(try_cast(v:calendarEvents as array<string>))             as n_calendar_events,
 
         -- edfi extensions
         v:_ext as v_ext

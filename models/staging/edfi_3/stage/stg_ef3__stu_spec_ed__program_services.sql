@@ -23,7 +23,7 @@ flattened as (
         value:_ext as v_ext        
 
     from stage_stu_programs,
-        lateral flatten(input => v_special_education_program_services)
+        lateral variant_explode(v_special_education_program_services)
 ),
 
 -- There is a v_ext nested within v_special_education_program_services. Those extensions must be extracted here, not in prev CTE, 

@@ -9,6 +9,6 @@ flattened as (
         {{ extract_descriptor('value:educationOrganizationIdentificationSystemDescriptor::string') }} as id_system,
         value:identificationCode::string as id_code
     from stage_schools
-        , lateral flatten(input=>v_identification_codes)
+        , lateral variant_explode(v_identification_codes)
 )
 select * from flattened

@@ -19,7 +19,7 @@ flattened as (
         -- for a downstream step
         {{ extract_descriptor('desig.value:disabilityDesignationDescriptor::string') }} as disability_designation
     from stg_stu_ed_org
-        , lateral flatten(input=>v_disabilities) disab
-        , lateral flatten(input=>disab.value:designations) as desig
+        , lateral variant_explode(v_disabilities) disab
+        , lateral variant_explode(disab.value:designations) as desig
 )
 select * from flattened

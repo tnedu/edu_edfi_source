@@ -15,7 +15,7 @@ flattened as (
         value:primaryEmailAddressIndicator::boolean                            as is_primary_email,
         value:doNotPublishIndicator::boolean                                   as do_not_publish
     from stg
-        , lateral flatten(input=>v_electronic_mails)
+        , lateral variant_explode(v_electronic_mails)
 )
 select * from flattened
 {% endmacro %}
@@ -38,7 +38,7 @@ flattened as (
         value:doNotPublishIndicator::boolean                                    as do_not_publish,
         value:textMessageCapabilityIndicator::boolean                           as is_text_message_capable
     from stg
-        , lateral flatten(input=>v_telephones)
+        , lateral variant_explode(v_telephones)
 )
 select * from flattened
 {% endmacro %}
@@ -72,8 +72,8 @@ flattened as (
         timing.value:beginDate::date as address_begin_date,
         timing.value:endDate::date as address_end_date
     from stg
-        , lateral flatten(input=>v_addresses) as addr
-        , lateral flatten(input=>addr.value:periods, outer=>true) as timing
+        , lateral variant_explode(v_addresses) as addr
+        , lateral variant_explode_outer(addr.value:periods) as timing
 ),
 full_address as (
     select *,

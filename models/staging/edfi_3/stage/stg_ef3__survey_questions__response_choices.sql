@@ -11,6 +11,6 @@ flattened as (
         value:numericValue::float as numeric_value,
         value:textValue::string   as text_value
     from stg_survey_questions
-        , lateral flatten(input=>v_response_choices)
+        , lateral variant_explode(v_response_choices)
 )
 select * from flattened

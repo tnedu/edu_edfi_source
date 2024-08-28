@@ -4,22 +4,21 @@
     {% if join_deletes %}
         select
             api_data.*,
-            get_ignore_case(deletes_data.v, 'id')::string is not null as is_deleted,
+            coalesce(deletes_data.v:id, deletes_data.v:Id, deletes_data.v:ID, deletes_data.v:iD) is not null as is_deleted,
             coalesce(deletes_data.pull_timestamp, api_data.pull_timestamp) as last_modified_timestamp
+        from {{ source('edfi_raw', resource) }} as api_data
 
-        from {{ source('raw_edfi_3', resource) }} as api_data
-
-            left join {{ source('raw_edfi_3', '_deletes') }} as deletes_data
+            left join {{ source('edfi_raw', '_deletes') }} as deletes_data
             on (
                 deletes_data.name = '{{ resource | lower }}'
                 and api_data.tenant_code = deletes_data.tenant_code
                 and api_data.api_year = deletes_data.api_year
-                and api_data.v:id::string = replace(get_ignore_case(deletes_data.v, 'id')::string, '-')
+                and api_data.v:id::string = replace(coalesce(deletes_data.v:id, deletes_data.v:Id, deletes_data.v:ID, deletes_data.v:iD), '-')
             )
 
     {% else %}
         select *, false as is_deleted, pull_timestamp as last_modified_timestamp
-        from {{ source('raw_edfi_3', resource) }}
+        from {{ source('edfi_raw', resource) }}
 
     {% endif %}
 

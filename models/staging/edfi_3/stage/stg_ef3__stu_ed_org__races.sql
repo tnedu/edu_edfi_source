@@ -12,7 +12,7 @@ flattened as (
         k_school,
         {{ extract_descriptor('value:raceDescriptor::string') }} as race
     from stage_stu_ed_org
-        , lateral flatten(input=>v_races)
+        , lateral variant_explode(v_races)
 )
 select * from flattened
 

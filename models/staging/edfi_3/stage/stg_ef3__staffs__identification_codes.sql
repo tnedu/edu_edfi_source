@@ -10,6 +10,6 @@ flattened as (
         value:assigningOrganizationIdentificationCode::string as assigning_org,
         value:identificationCode::string as id_code
     from stage_staffs
-        , lateral flatten(input=>v_identification_codes)
+        , lateral variant_explode(v_identification_codes)
 )
 select * from flattened

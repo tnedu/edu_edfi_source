@@ -15,8 +15,8 @@ flattened as (
         timing.value:beginDate::date as begin_date,
         timing.value:endDate::date as end_date
     from stage_stu_ed_org
-        , lateral flatten(input=>v_student_characteristics, outer=>true) as char
-        , lateral flatten(input=>char.value:periods, outer=>true) as timing
+        , lateral variant_explode_outer(v_student_characteristics) as char
+        , lateral variant_explode_outer(char.value:periods) as timing
 )
 select * from flattened
 

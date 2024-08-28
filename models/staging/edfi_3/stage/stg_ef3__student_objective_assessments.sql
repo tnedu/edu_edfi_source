@@ -31,14 +31,14 @@ flattened as (
         value:performanceLevels as v_performance_levels,
         value:scoreResults as v_score_results
     from stage_student_assessments,
-        lateral flatten(input => v_student_objective_assessments)
+        lateral variant_explode(v_student_objective_assessments)
 ),
 keyed as (
     select
         tenant_code,
         api_year,
         pull_timestamp,
-        {{ dbt_utils.surrogate_key(
+        {{ dbt_utils.generate_surrogate_key(
             ['tenant_code',
             'api_year',
             'lower(academic_subject)',

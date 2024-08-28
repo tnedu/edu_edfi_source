@@ -9,6 +9,6 @@ flattened as (
         {{ extract_descriptor('value:assessmentReportingMethodDescriptor::string') }} as score_name,
         {{ extract_descriptor('value:resultDatatypeTypeDescriptor::string') }} as score_data_type
     from stage_assessments,
-        lateral flatten(input=>v_scores)
+        lateral variant_explode(v_scores)
 )
 select * from flattened
