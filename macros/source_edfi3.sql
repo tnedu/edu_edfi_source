@@ -8,9 +8,9 @@
                but json strings are not. So this will get "id" in any case form (id, ID, iD, Id). */
             (to_json(deletes_data.v)):id is not null as is_deleted,
             coalesce(deletes_data.pull_timestamp, api_data.pull_timestamp) as last_modified_timestamp
-        from {{ source('edfi_raw', resource) }} as api_data
+        from {{ source('raw_edfi_3', resource) }} as api_data
 
-            left join {{ source('edfi_raw', '_deletes') }} as deletes_data
+            left join {{ source('raw_edfi_3', '_deletes') }} as deletes_data
             on (
                 deletes_data.name = '{{ resource | lower }}'
                 and api_data.tenant_code = deletes_data.tenant_code
@@ -20,7 +20,7 @@
 
     {% else %}
         select *, false as is_deleted, pull_timestamp as last_modified_timestamp
-        from {{ source('edfi_raw', resource) }}
+        from {{ source('raw_edfi_3', resource) }}
 
     {% endif %}
 
