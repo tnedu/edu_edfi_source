@@ -14,6 +14,6 @@ flattened as (
         value:schoolYearTypeReference:schoolYear::string as school_year,
         {{ extract_descriptor('value:termDescriptor::string') }} as academic_term
     from stage_stu_ed_org
-        , lateral flatten(input=>v_cohort_years)
+        , lateral variant_explode(v_cohort_years)
 )
 select * from flattened
