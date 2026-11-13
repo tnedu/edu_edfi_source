@@ -1,0 +1,15 @@
+version: 1
+
+models:
+  - name: val_ef3__calendars
+    config:
+      tags: ['data_validation']
+      enabled: "{{ var('edu:data_validation', {}).get('enabled', false) and (var('edu:data_validation', {}).get('models', {}).get('stg_ef3__calendars', []) | length > 0) }}"
+  - name: val_ef3__schools
+    config:
+      tags: ['data_validation']
+      enabled: "{{ var('edu:data_validation', {}).get('enabled', false) and (var('edu:data_validation', {}).get('models', {}).get('stg_ef3__schools', []) | length > 0) }}"
+  - name: val_ef3__local_education_agencies
+    config:
+      tags: ['data_validation']
+      enabled: "{{ var('edu:data_validation', {}).get('enabled', false) and (var('edu:data_validation', {}).get('models', {}).get('stg_ef3__local_education_agencies', []) | length > 0) }}"
