@@ -25,5 +25,7 @@ deduped as (
         )
     }}
 )
-select * from deduped
+select *
+    {{ validation_columns() }}
+from deduped
 where not is_deleted

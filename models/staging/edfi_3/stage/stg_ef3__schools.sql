@@ -54,4 +54,6 @@ deduped_across_years as (
         )
     }}
 )
-select * from deduped_across_years
+select * 
+    {{ validation_columns() }}
+from deduped_across_years
