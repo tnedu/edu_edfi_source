@@ -123,6 +123,8 @@
 
 {#
     Materializes validator results back into an edu_edfi_source staging model.
+    All validator results are designed to be preserved at this level, even 
+    those which are not a configured severity.
 
     Each configured validator produces one row per validation finding containing
     the target model''s key columns and a canonical validation struct.
